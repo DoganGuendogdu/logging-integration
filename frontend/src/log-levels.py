@@ -1,9 +1,12 @@
 import streamlit as st
 import yaml
 import requests 
+from pathlib import Path
+
+ROOT_PATH = Path(__file__).resolve().parent.parent
 
 try:
-    with open("../config.yml") as config_file:
+    with open(ROOT_PATH / "config.yml") as config_file:
         config = yaml.safe_load(config_file)
 except FileNotFoundError as e:
     raise e
