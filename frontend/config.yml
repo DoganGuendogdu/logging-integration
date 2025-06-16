@@ -1,0 +1,7 @@
+backend:
+  endpoints:
+    info: "http:localhost:1111/info"
+    debug: "http:localhost:1111/debug"
+    warning: "http:localhost:1111/warning"
+    error: "http:localhost:1111/error"
+    critical: "http:localhost:1111/critical"

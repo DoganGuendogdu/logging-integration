@@ -1,4 +1,18 @@
 import streamlit as st
+import yaml
+
+try:
+    with open("../config.yml") as config_file:
+        config = yaml.safe_load(config_file)
+except FileNotFoundError as e:
+    raise e
+
+ENDPOINTS = config["backend"]["endpoints"]
+INFO_ENDPOINT = ENDPOINTS["info"]
+DEBUG_ENDPOINT = ENDPOINTS["debug"]
+WARNING_ENDPOINT = ENDPOINTS["warning"]
+ERROR_ENDPOINT = ENDPOINTS["error"]
+CRITICAL_ENDPOINT = ENDPOINTS["critical"]
 
 with st.container():
     st.session_state["info_level"] = st.button("Info")
@@ -26,4 +40,3 @@ with st.container():
     if st.session_state["critical_level"]:
         st.write("Critical")
         st.session_state["critical_level"] = False
-        
