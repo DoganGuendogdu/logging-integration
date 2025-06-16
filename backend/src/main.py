@@ -7,34 +7,34 @@ from starlette.responses import Response
 log_counter = Counter("log_events_total", "Counts number of entries for every log level", ["level"])
 
 class Message(BaseModel):
-    info_message:str
+    message:str
 
 app = FastAPI()
 
 @app.post("/log/info")
-async def log_endpoint_info(info_message:Message):
+async def log_endpoint_info(message:Message):
     log_counter.labels(level="INFO").inc()
-    return {"message": f"severity with log level 'INFO' and content: {info_message}"} 
+    return {"message": f"severity with log level 'INFO' and content: {message}"} 
 
 @app.post("/log/debug")
-async def log_endpoint_info(debug_message:Message):
+async def log_endpoint_info(message:Message):
     log_counter.labels(level="DEBUG").inc()
-    return {"message": f"severity with log level 'DEBUG' and content: {debug_message}"} 
+    return {"message": f"severity with log level 'DEBUG' and content: {message}"} 
 
 @app.post("/log/warning")
-async def log_endpoint_info(warning_message:Message):
+async def log_endpoint_info(message:Message):
     log_counter.labels(level="WARNING").inc()
-    return {"message": f"severity with log level 'WARNING' and content: {warning_message}"} 
+    return {"message": f"severity with log level 'WARNING' and content: {message}"} 
 
 @app.post("/log/error")
-async def log_endpoint_info(error_message:Message):
+async def log_endpoint_info(message:Message):
     log_counter.labels(level="ERROR").inc()
-    return {"message": f"severity with log level 'ERROR' and content: {error_message}"} 
+    return {"message": f"severity with log level 'ERROR' and content: {message}"} 
 
 @app.post("/log/critical")
-async def log_endpoint_info(critical_message:Message):
+async def log_endpoint_info(message:Message):
     log_counter.labels(level="CRITICAL").inc()
-    return {"message": f"severity with log level 'CRITICAL' and content: {critical_message}"} 
+    return {"message": f"severity with log level 'CRITICAL' and content: {message}"} 
 
 @app.get("/metrics")
 async def metrics():
