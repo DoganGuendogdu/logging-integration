@@ -1,7 +1,16 @@
 backend:
   endpoints:
-    info: "http://127.0.0.1:1111/log/info"
-    debug: "http://127.0.0.1:1111/log/debug"
-    warning: "http://127.0.0.1:1111/log/warning"
-    error: "http://127.0.0.1:1111/log/error"
-    critical: "http://127.0.0.1:1111/log/critical"
+    info: "http://backend-fastapi-api:1111/log/info"
+    debug: "http://backend-fastapi-api:1111/log/debug"
+    warning: "http://backend-fastapi-api:1111/log/warning"
+    error: "http://backend-fastapi-api:1111/log/error"
+    critical: "http://backend-fastapi-api:1111/log/critical"
+
+
+#backend:
+#  endpoints:
+#    info: "http://127.0.0.1:1111/log/info"
+#    debug: "http://127.0.0.1:1111/log/debug"
+#    warning: "http://127.0.0.1:1111/log/warning"
+#    error: "http://127.0.0.1:1111/log/error"
+#    critical: "http://127.0.0.1:1111/log/critical"
