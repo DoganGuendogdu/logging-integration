@@ -1,5 +1,6 @@
 import streamlit as st
 import yaml
+import requests 
 
 try:
     with open("../config.yml") as config_file:
@@ -22,21 +23,21 @@ with st.container():
     st.session_state["critical_level"] = st.button("Critical")
     
     if st.session_state["info_level"]:
-        st.write("Info")
+        requests.post(INFO_ENDPOINT, json={"message": "Hello from INFO message!"})
         st.session_state["info_level"] = False
 
     if st.session_state["debug_level"]:
-        st.write("Debug")
+        requests.post(DEBUG_ENDPOINT, json={"message": "Hello from DEBUG message!"})
         st.session_state["debug_level"] = False
     
     if st.session_state["warning_level"]:
-        st.write("Warning")
+        requests.post(WARNING_ENDPOINT,json={"message": "Hello from WARNING message!"} )
         st.session_state["warning_level"] = False
     
     if st.session_state["error_level"]:
-        st.write("Error")
+        requests.post(ERROR_ENDPOINT,json={"message": "Hello from ERROR message!"} )
         st.session_state["error_level"] = False
 
     if st.session_state["critical_level"]:
-        st.write("Critical")
+        requests.post(CRITICAL_ENDPOINT,json={"message": "Hello from CRITICAL message!"} )
         st.session_state["critical_level"] = False
