@@ -9,3 +9,13 @@
       build: frontend
       ports:
         - "8501:8501"
+    prometheus:
+      image: prom/prometheus
+      volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
+        - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
+        - /etc/timezone:/etc/timezone:ro
+      command:
+        - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
+      ports:
+        - "9090:9090"
