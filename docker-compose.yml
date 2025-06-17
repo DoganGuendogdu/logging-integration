@@ -13,9 +13,19 @@
       image: prom/prometheus
       volumes:
         - ./prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
+        - ./alert.rules.yml:/etc/prometheus/alert.rules.yml # register alters 
         - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
         - /etc/timezone:/etc/timezone:ro
       command:
         - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
       ports:
         - "9090:9090"
+
+    prometheus-altermanager: # altermanger is a seperate service of Prometheus
+      image: prom/alertmanager
+      volumes:
+        - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
+      command:
+        - "--config.file=/etc/alertmanager/alertmanager.yml"
+      ports:
+        - "9093:9093"

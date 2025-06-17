@@ -1,0 +1,13 @@
+global:
+  smtp_smarthost: '' # SMTP server for gmail
+  smtp_from: ''
+  smtp_auth_username: ''
+  smtp_auth_password: ''
+
+route:
+  receiver: 'email-alert' # define to notify via email
+
+receivers:
+  - name: 'email-alert' # reference email receiver and configure it's settings
+    email_configs:
+      - to: ''

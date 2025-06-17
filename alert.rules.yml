@@ -1,0 +1,10 @@
+groups:
+  - name: info_alert 
+    rules:
+      - alert: HighErrorRate
+        expr: rate(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 # TODO: Alert must be fired
+        labels:
+          severity: info
+        annotations:
+          summary: "INFO log detected!"
+          description: "An INFO message has been logged"

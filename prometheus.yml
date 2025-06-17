@@ -1,13 +1,22 @@
-# Prometheus config
+# Prometheus service config
+# Define global configuration and set path to config files 
 
 global:
-  scrape_interval: "15s"
-  scrape_timeout: "10s"
+  scrape_interval: "1m" # Poll metric data every 5 min
 
-scrape_configs:
+scrape_configs: # Define where to get metric data from
   - job_name: "logging-integration"
     metrics_path: /metrics
     scheme: http
     static_configs:
       - targets:
           - backend-fastapi-api:1111
+
+alerting: # Define which service will handle alerts forwarded by Prometheus
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - prometheus-alertmanager:9093
+
+rule_files:
+  - /etc/prometheus/alert.rules.yml # Prometheus uses this file to register the alerts
