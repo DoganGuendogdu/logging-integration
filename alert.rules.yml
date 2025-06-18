@@ -2,7 +2,7 @@ groups:
   - name: info_alert 
     rules:
       - alert: InfoLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[4m]) > 0 
         labels:
           severity: info
         annotations:
@@ -11,7 +11,7 @@ groups:
   - name: debug_alert 
     rules:
       - alert: DebugLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="DEBUG"}[2m]) > 0 
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="DEBUG"}[4m]) > 0 
         labels:
           severity: debug
         annotations:
@@ -20,7 +20,7 @@ groups:
   - name: warning_alert 
     rules:
       - alert: WarningLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="WARNING"}[2m]) > 0 
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="WARNING"}[4m]) > 0 
         labels:
           severity: warning
         annotations:
@@ -29,7 +29,7 @@ groups:
   - name: error_alert 
     rules:
       - alert: ErrorLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="ERROR"}[2m]) > 0 
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="ERROR"}[4m]) > 0 
         labels:
           severity: error
         annotations:
@@ -38,7 +38,7 @@ groups:
   - name: critical_alert 
     rules:
       - alert: CriticalLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[2m]) > 0 
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[4m]) > 0 
         labels:
           severity: critical
         annotations:
