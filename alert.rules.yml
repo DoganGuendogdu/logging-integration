@@ -2,8 +2,8 @@ groups:
   - name: info_alert 
     rules:
       - alert: HighErrorRate
-        #expr: rate(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 # TODO: Alert must be fired
-        expr: vector(1)
+        expr: rate(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 # TODO: Alert must be fired
+        for: 0s # time which defined how long the expr must be true at 
         labels:
           severity: info
         annotations:
