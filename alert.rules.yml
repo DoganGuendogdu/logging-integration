@@ -42,5 +42,5 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "CRITICAL Alert detected!"
+          summary: "CRITICAL HACKER Alert detected!"
           description: "More than 15 attempts were made in the last 3 minutes!"
