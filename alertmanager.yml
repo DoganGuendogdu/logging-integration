@@ -1,13 +1,17 @@
 global:
-  smtp_smarthost: '' # SMTP server for gmail
-  smtp_from: ''
-  smtp_auth_username: ''
-  smtp_auth_password: ''
+  smtp_smarthost: 'smtp.gmail.com:587' 
+  smtp_require_tls: true 
 
 route:
-  receiver: 'email-alert' # define to notify via email
-
+  receiver: 'email-notification-gmail'
+    
 receivers:
-  - name: 'email-alert' # reference email receiver and configure it's settings
+  - name: 'email-notification-gmail' 
     email_configs:
-      - to: ''
+      - to: 'target@test.com' #REPLACE WITH YOUR TARGET
+        from: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
+        smarthost: 'smtp.gmail.com:587'
+        auth_username: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
+        auth_identity: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
+        auth_password: '' # # REPLACE WITH YOUR APP PASSWORD WITHOUT!! SPACE CHARACTER
+  
