@@ -21,7 +21,7 @@
       ports:
         - "9090:9090"
 
-    prometheus-altermanager: # altermanger is a seperate service of Prometheus
+    prometheus-alertmanager: # altertmanger is a seperate service of Prometheus
       image: prom/alertmanager
       volumes:
         - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
