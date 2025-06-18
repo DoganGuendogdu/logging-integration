@@ -37,10 +37,10 @@ groups:
           description: "An ERROR message has been logged"
   - name: critical_alert 
     rules:
-      - alert: CriticalLogDetected
-        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[4m]) > 0 
+      - alert: CriticalAlertDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[3m]) > 15
         labels:
           severity: critical
         annotations:
-          summary: "CRITICAL log detected!"
-          description: "A CRITICAL message has been logged"
+          summary: "CRITICAL Alert detected!"
+          description: "More than 15 attempts were made in the last 3 minutes!"
