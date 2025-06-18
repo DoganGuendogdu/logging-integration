@@ -1,11 +1,46 @@
 groups:
   - name: info_alert 
     rules:
-      - alert: HighErrorRate
-        expr: rate(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 # TODO: Alert must be fired
-        for: 0s # time which defined how long the expr must be true at 
+      - alert: InfoLogDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[2m]) > 0 
         labels:
           severity: info
         annotations:
           summary: "INFO log detected!"
           description: "An INFO message has been logged"
+  - name: debug_alert 
+    rules:
+      - alert: DebugLogDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="DEBUG"}[2m]) > 0 
+        labels:
+          severity: debug
+        annotations:
+          summary: "DEBUG log detected!"
+          description: "A DEBUG message has been logged"
+  - name: warning_alert 
+    rules:
+      - alert: WarningLogDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="WARNING"}[2m]) > 0 
+        labels:
+          severity: warning
+        annotations:
+          summary: "WARNING log detected!"
+          description: "A WARNING message has been logged"
+  - name: error_alert 
+    rules:
+      - alert: ErrorLogDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="ERROR"}[2m]) > 0 
+        labels:
+          severity: error
+        annotations:
+          summary: "ERROR log detected!"
+          description: "An ERROR message has been logged"
+  - name: critical_alert 
+    rules:
+      - alert: CriticalLogDetected
+        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[2m]) > 0 
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL log detected!"
+          description: "A CRITICAL message has been logged"

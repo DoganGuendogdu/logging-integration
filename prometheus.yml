@@ -2,7 +2,7 @@
 # Define global configuration and set path to config files 
 
 global:
-  scrape_interval: "1m" # Poll metric data every 5 min
+  scrape_interval: "3m" # Poll metric data every 3 min
 
 scrape_configs: # Define where to get metric data from
   - job_name: "logging-integration"
