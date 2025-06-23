@@ -12,15 +12,20 @@ try:
 except FileNotFoundError as e:
     raise e
 
-def generate_random_value_between_5_and_20():
-    return randint(5, 20)
+def generate_random_value_between_5_and_20_as_str():
+    return str(randint(5, 20))
 
 ENDPOINTS = config["backend"]["endpoints"]
+
 INFO_ENDPOINT = ENDPOINTS["info"]
 DEBUG_ENDPOINT = ENDPOINTS["debug"]
 WARNING_ENDPOINT = ENDPOINTS["warning"]
 ERROR_ENDPOINT = ENDPOINTS["error"]
 CRITICAL_ENDPOINT = ENDPOINTS["critical"]
+
+COST_VODAFONE_ENDPOINT = ENDPOINTS["cost_vodafone"]
+COST_TELEKOM_ENDPOINT = ENDPOINTS["cost_telekom"]
+COST_1UND1_ENDPOINT = ENDPOINTS["cost_1und1"]
 
 with st.container():
     st.session_state["info_level"] = st.button("Info")
@@ -55,13 +60,23 @@ with st.container():
     st.session_state["costs_1und1"] = st.button("Generate random costs for 1&1", type="primary")
 
     if st.session_state["costs_vodafone"]:
-        generate_random_value_between_5_and_20()
+        try:
+            requests.post(COST_VODAFONE_ENDPOINT, json={"cost": generate_random_value_between_5_and_20_as_str()})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["costs_vodafone"] = False
     
     if st.session_state["costs_telekom"]:
-        generate_random_value_between_5_and_20()
+        try:
+            requests.post(COST_TELEKOM_ENDPOINT, json={"cost": generate_random_value_between_5_and_20_as_str()})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["costs_telekom"] = False
 
     if st.session_state["costs_1und1"]:
-        generate_random_value_between_5_and_20()
+        try:
+            requests.post(COST_1UND1_ENDPOINT, json={"cost": generate_random_value_between_5_and_20_as_str()})
+        except requests.exceptions.RequestException as e: 
+            raise e
         st.session_state["costs_1und1"] = False
+        
