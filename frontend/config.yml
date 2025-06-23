@@ -5,7 +5,14 @@ backend:
     warning: "http://backend-fastapi-api:1111/log/warning"
     error: "http://backend-fastapi-api:1111/log/error"
     critical: "http://backend-fastapi-api:1111/log/critical"
+    
+    #cost_vodafone: "http://backend-fastapi-api:1111/cost/vodafone"
+    #cost_telekom: "http://backend-fastapi-api:1111/cost/telekom"
+    #cost_1und1: "http://backend-fastapi-api:1111/cost/1und1"
 
+    cost_vodafone: "http://127.0.0.1:1111/cost/vodafone"
+    cost_telekom: "http://127.0.0.1:1111/cost/telekom"
+    cost_1und1: "http://127.0.0.1:1111/cost/1und1"
 
 #backend:
 #  endpoints:
@@ -14,3 +21,7 @@ backend:
 #    warning: "http://127.0.0.1:1111/log/warning"
 #    error: "http://127.0.0.1:1111/log/error"
 #    critical: "http://127.0.0.1:1111/log/critical"
+
+#    cost_vodafone: "http://127.0.0.1:1111/cost/vodafone"
+#    cost_telekom: "http://127.0.0.1:1111/cost/telekom"
+#    cost_1und1: "http://127.0.0.1:1111/cost/1und1"
