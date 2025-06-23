@@ -35,23 +35,38 @@ with st.container():
     st.session_state["critical_level"] = st.button("Critical")
     
     if st.session_state["info_level"]:
-        requests.post(INFO_ENDPOINT, json={"message": "Hello from INFO message!"})
+        try:
+         requests.post(INFO_ENDPOINT, json={"message": "Hello from INFO message!"})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["info_level"] = False
 
     if st.session_state["debug_level"]:
-        requests.post(DEBUG_ENDPOINT, json={"message": "Hello from DEBUG message!"})
+        try:
+            requests.post(DEBUG_ENDPOINT, json={"message": "Hello from DEBUG message!"})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["debug_level"] = False
     
     if st.session_state["warning_level"]:
-        requests.post(WARNING_ENDPOINT,json={"message": "Hello from WARNING message!"} )
+        try:
+            requests.post(WARNING_ENDPOINT,json={"message": "Hello from WARNING message!"})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["warning_level"] = False
     
     if st.session_state["error_level"]:
-        requests.post(ERROR_ENDPOINT,json={"message": "Hello from ERROR message!"} )
+        try:
+            requests.post(ERROR_ENDPOINT,json={"message": "Hello from ERROR message!"})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["error_level"] = False
 
     if st.session_state["critical_level"]:
-        requests.post(CRITICAL_ENDPOINT,json={"message": "Hello from CRITICAL message!"} )
+        try:
+            requests.post(CRITICAL_ENDPOINT,json={"message": "Hello from CRITICAL message!"})
+        except requests.exceptions.RequestException as e:
+            raise e
         st.session_state["critical_level"] = False
 
 with st.container():
@@ -79,4 +94,3 @@ with st.container():
         except requests.exceptions.RequestException as e: 
             raise e
         st.session_state["costs_1und1"] = False
-        
