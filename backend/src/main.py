@@ -3,7 +3,10 @@ from pydantic import BaseModel
 from prometheus_client import Counter, Gauge
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from starlette.responses import Response
+import logging
 
+logger = logging.getLogger("uvicorn.error")
+logger.setLevel(logging.DEBUG)
 
 log_counter = Counter("log_events_total", "Counts number of entries for every log level", ["level"])
 costs_total = Gauge("costs_total", "Summarizes total costs for different customers", ["customer"])
@@ -14,7 +17,7 @@ class Message(BaseModel):
 class Costs(BaseModel):
     cost:str
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 @app.post("/log/info")
 async def log_endpoint_info(message:Message):
@@ -43,17 +46,20 @@ async def log_endpoint_info(message:Message):
 
 @app.post("/cost/vodafone")
 async def cost_vodafone(cost: Costs):
-    costs_total.labels(customer="Vodafone").set(cost.cost)
+    costs_total.labels(customer="Vodafone").inc(float(cost.cost))
+    logger.debug(f"Costs for Vodafone: {cost.cost}")
     return {"cost_vodafone": cost}
     
 @app.post("/cost/telekom")
 async def cost_telekom(cost:Costs):
-    costs_total.labels(customer="Telekom").set(cost.cost)
+    costs_total.labels(customer="Telekom").inc(float(cost.cost))
+    logger.debug(f"Costs for Telekom: {cost.cost}")
     return {"cost_telekom": cost}
 
 @app.post("/cost/1und1")
 async def cost_1und1(cost: Costs):
-    costs_total.labels(customer="1und1").set(cost.cost)
+    costs_total.labels(customer="1und1").inc(float(cost.cost))
+    logger.debug(f"Costs for 1und1: {cost.cost}")
     return {"cost_1und1": cost}
 
 @app.get("/metrics")
