@@ -37,7 +37,8 @@ groups:
           description: "The limit of 700€ set for all customers has been exceeded"
 
       - alert: CostLimitExceededVodafone
-        expr: osts_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"} > 300
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"} > 300
+        for: 0s
         labels:
           severity: critical
           alert_type: cost
@@ -47,6 +48,7 @@ groups:
 
       - alert: CostLimitExceededTelekom
         expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"} > 200
+        for: 0s
         labels:
           severity: critical
           alert_type: cost
