@@ -4,7 +4,7 @@ global:
 
 route:
   # tell alert manager to create aggregation groups bases on value of specified label 
-  group_by: [cost_type]
+  group_by: [alert_type]
   # how long to initially wait to send a notification for a group
   # of alerts. Allows to wait for an inhibiting alert to arrive or collect
   # more initial alerts for the same group.
@@ -30,4 +30,3 @@ receivers:
         auth_username: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
         auth_identity: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
         auth_password: '' # # REPLACE WITH YOUR APP PASSWORD WITHOUT!! SPACE CHARACTER
-  

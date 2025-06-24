@@ -31,7 +31,7 @@ groups:
         expr: sum(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}) > 700
         labels:
           severity: critical
-          alert_type: cost
+          alert_type: cost_exceeded
         annotations:
           summary: "The total cost limit of 700€ has been exceeded!"
           description: "The limit of 700€ set for all customers has been exceeded"
@@ -41,7 +41,7 @@ groups:
         for: 0s
         labels:
           severity: critical
-          alert_type: cost
+          alert_type: cost_exceeded
         annotations:
           summary: "The cost limit of 300€ has been exceeded for customer 'Vodafone'"
           description: "The limit of 300€ set for the API key used by customer 'Vodafone' has been exceeded"
@@ -51,7 +51,7 @@ groups:
         for: 0s
         labels:
           severity: critical
-          alert_type: cost
+          alert_type: cost_exceeded
         annotations:
           summary: "The cost limit of 200€ has been exceeded for customer 'Telekom'"
           description: "The limit of 200€ set for the API key used by customer 'Telekom' has been exceeded"
@@ -61,7 +61,7 @@ groups:
         for: 0s
         labels:
           severity: critical
-          alert_type: cost
+          alert_type: cost_exceeded
         annotations:
           summary: "The cost limit of 150€ has been exceeded for customer '1und1'"
           description: "The limit of 150€ set for the API key used by customer '1und1' has been exceeded"
