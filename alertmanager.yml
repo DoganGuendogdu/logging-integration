@@ -1,8 +1,24 @@
 global:
-  smtp_smarthost: 'smtp.gmail.com:587' 
+  smtp_smarthost: 'smtp.gmail.com:587' # SMTP server address and port
   smtp_require_tls: true 
 
 route:
+  # tell alert manager to create aggregation groups bases on value of specified label 
+  group_by: [cost_type]
+  # how long to initially wait to send a notification for a group
+  # of alerts. Allows to wait for an inhibiting alert to arrive or collect
+  # more initial alerts for the same group.
+  group_wait: 15s 
+  # How long to wait before sending a notification about new alerts that
+  # are added to a group of alerts for which an initial notification has
+  # already been sent. 
+  # Allows new notifications to be added to the already existing altermanager aggregation group pipeline.
+  group_interval: 5m
+  # How long to wait before sending a notification again if it has already
+  # been sent successfully for an alert.
+  # This ensures that no notifications are sent permanentelty once the threshold is exceeded.
+  # Instead, alert remains in "firing" state and send another notification after specified 'repeat_interval'
+  repeat_interval: 10m 
   receiver: 'email-notification-gmail'
     
 receivers:
