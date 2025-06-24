@@ -2,8 +2,10 @@ global:
   smtp_smarthost: 'smtp.gmail.com:587' # SMTP server address and port
   smtp_require_tls: true 
 
+# GLOBAL route config
+# If no other rules specified in 'routes', global config will be used
 route:
-  # tell alert manager to create aggregation groups bases on value of specified label 
+  # tell alert manager to create aggregation groups based on value of specified label 
   group_by: [alert_type]
   # how long to initially wait to send a notification for a group
   # of alerts. Allows to wait for an inhibiting alert to arrive or collect
@@ -20,7 +22,15 @@ route:
   # Instead, alert remains in "firing" state and send another notification after specified 'repeat_interval'
   repeat_interval: 10m 
   receiver: 'email-notification-gmail'
-    
+
+  routes:
+    - match:
+        alert_type: cost_exceeded
+      repeat_interval: 10m
+    - match:
+        alert_type: cost_alert_hourly
+      repeat_interval: 1h
+
 receivers:
   - name: 'email-notification-gmail' 
     email_configs:
@@ -29,4 +39,4 @@ receivers:
         smarthost: 'smtp.gmail.com:587'
         auth_username: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
         auth_identity: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
-        auth_password: '' # # REPLACE WITH YOUR APP PASSWORD WITHOUT!! SPACE CHARACTER
+        auth_password: '' # #
