@@ -2,7 +2,8 @@
 # Define global configuration and set path to config files 
 
 global:
-  scrape_interval: "2m" 
+  scrape_interval: "60s" # Poll every 30s for changes 
+  evaluation_interval: "60s" # Explicitily tell alert manager for evaluate rules everytime a scrape has happened
 
 scrape_configs: # Define where to get metric data from
   - job_name: "logging-integration"
