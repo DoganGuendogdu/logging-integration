@@ -25,7 +25,7 @@ groups:
 #          summary: "CRITICAL HACKER Alert detected!"
 #          description: "More than 15 attempts were made in the last 3 minutes!"
 
-  - name: cost_alerts
+  - name: cost_alerts_threshold_exceeded
     rules:
       - alert: TotalCostLimitExceeded
         expr: sum(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}) > 700
@@ -65,3 +65,15 @@ groups:
         annotations:
           summary: "The cost limit of 150€ has been exceeded for customer '1und1'"
           description: "The limit of 150€ set for the API key used by customer '1und1' has been exceeded"
+
+  - name: cost_alerts_hourly
+    rules:
+      - alert: HourlyCostVodafone
+        expr: sum_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"}[1h])
+        for: 0s 
+        labels:
+          severity: info
+          alert_type: cost_alert_hourly
+        annotations:
+          summary: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }}"
+          description: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }} with a total limit of 300€"
