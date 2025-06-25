@@ -31,3 +31,23 @@ services:
       - "--config.file=/etc/alertmanager/alertmanager.yml"
     ports:
       - "9093:9093"
+
+  grafana:
+      image: grafana/grafana
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      environment:
+      - GF_SECURITY_ADMIN_USER=user
+      - GF_SECURITY_ADMIN_PASSWORD=password
+      volumes:
+        # map docker volume to the internal Docker container path containing Grafana persistent data (state of Grafana)
+        - grafana-storage:/var/lib/grafana
+        # provide static config files to set config and generate resources 
+        - ./grafana/provisioning:/etc/grafana/provisioning
+
+volumes:
+  # create a persistent volume managed by Docker
+  # no need to specify path to volume since Docker is managing it under the hood
+  grafana-storage: 
+  
