@@ -1,31 +1,33 @@
-  version: '3'
+version: '3'
 
-  services:
-    backend-fastapi-api:
-      build: backend
-      ports:
-        - "1111:1111"
-    frontend-streamlit:
-      build: frontend
-      ports:
-        - "8501:8501"
-    prometheus:
-      image: prom/prometheus
-      volumes:
-        - ./prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
-        - ./alert.rules.yml:/etc/prometheus/alert.rules.yml # register alters 
-        - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
-        - /etc/timezone:/etc/timezone:ro
-      command:
-        - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
-      ports:
-        - "9090:9090"
+services:
+  backend-fastapi-api:
+    build: backend
+    ports:
+      - "1111:1111"
 
-    prometheus-alertmanager: # altertmanger is a seperate service of Prometheus
-      image: prom/alertmanager
-      volumes:
-        - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
-      command:
-        - "--config.file=/etc/alertmanager/alertmanager.yml"
-      ports:
-        - "9093:9093"
+  frontend-streamlit:
+    build: frontend
+    ports:
+      - "8501:8501"
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
+      - ./alert.rules.yml:/etc/prometheus/alert.rules.yml # register alerts 
+      - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
+      - /etc/timezone:/etc/timezone:ro
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
+    ports:
+      - "9090:9090"
+
+  prometheus-alertmanager: # alertmanager is a separate service of Prometheus
+    image: prom/alertmanager
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+    ports:
+      - "9093:9093"
