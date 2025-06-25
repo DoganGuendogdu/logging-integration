@@ -20,6 +20,7 @@ route:
   # been sent successfully for an alert.
   # This ensures that no notifications are sent permanentelty once the threshold is exceeded.
   # Instead, alert remains in "firing" state and send another notification after specified 'repeat_interval'
+  # Also, intervall to specify time when to trigger an alert
   repeat_interval: 10m 
   receiver: 'email-notification-gmail'
 
@@ -34,9 +35,9 @@ route:
 receivers:
   - name: 'email-notification-gmail' 
     email_configs:
-      - to: 'target@test.com' #REPLACE WITH YOUR TARGET
-        from: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
+      - to: 'target@test.com' # REPLACE WITH YOUR TARGET
+        from: 'your-email@gmail.com' # REPLACE WITH YOUR GMAIL!
         smarthost: 'smtp.gmail.com:587'
-        auth_username: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
-        auth_identity: 'your-email@gmail.com' #REPLACE WITH YOUR GMAIL!
-        auth_password: '' # #
+        auth_username: 'your-email@gmail.com' # REPLACE WITH YOUR GMAIL!
+        auth_identity: 'your-email@gmail.com' # REPLACE WITH YOUR GMAIL!
+        auth_password: '' # REPLACE WITH APP PASSWORD
