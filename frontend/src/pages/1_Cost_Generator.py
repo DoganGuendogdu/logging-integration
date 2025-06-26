@@ -4,7 +4,7 @@ import requests
 from pathlib import Path
 from random import randint
 
-ROOT_PATH = Path(__file__).resolve().parent.parent
+ROOT_PATH = Path(__file__).resolve().parent.parent.parent
 
 try:
     with open(ROOT_PATH / "config.yml") as config_file:
@@ -27,47 +27,49 @@ COST_VODAFONE_ENDPOINT = ENDPOINTS["cost_vodafone"]
 COST_TELEKOM_ENDPOINT = ENDPOINTS["cost_telekom"]
 COST_1UND1_ENDPOINT = ENDPOINTS["cost_1und1"]
 
-with st.container():
-    st.session_state["info_level"] = st.button("Info")
-    st.session_state["debug_level"] = st.button("Debug")
-    st.session_state["warning_level"] = st.button("Warning")
-    st.session_state["error_level"] = st.button("Error")
-    st.session_state["critical_level"] = st.button("Critical")
-    
-    if st.session_state["info_level"]:
-        try:
-         requests.post(INFO_ENDPOINT, json={"message": "Hello from INFO message!"})
-        except requests.exceptions.RequestException as e:
-            raise e
-        st.session_state["info_level"] = False
 
-    if st.session_state["debug_level"]:
-        try:
-            requests.post(DEBUG_ENDPOINT, json={"message": "Hello from DEBUG message!"})
-        except requests.exceptions.RequestException as e:
-            raise e
-        st.session_state["debug_level"] = False
+# with st.container():
+#     st.session_state["info_level"] = st.button("Info")
+#     st.session_state["debug_level"] = st.button("Debug")
+#     st.session_state["warning_level"] = st.button("Warning")
+#     st.session_state["error_level"] = st.button("Error")
+#     st.session_state["critical_level"] = st.button("Critical")
     
-    if st.session_state["warning_level"]:
-        try:
-            requests.post(WARNING_ENDPOINT,json={"message": "Hello from WARNING message!"})
-        except requests.exceptions.RequestException as e:
-            raise e
-        st.session_state["warning_level"] = False
-    
-    if st.session_state["error_level"]:
-        try:
-            requests.post(ERROR_ENDPOINT,json={"message": "Hello from ERROR message!"})
-        except requests.exceptions.RequestException as e:
-            raise e
-        st.session_state["error_level"] = False
+#     if st.session_state["info_level"]:
+#         try:
+#             requests.post(INFO_ENDPOINT, json={"message": "Hello from INFO message!"})
+#         except requests.exceptions.RequestException as e:
+#             raise e
+#         st.session_state["info_level"] = False
 
-    if st.session_state["critical_level"]:
-        try:
-            requests.post(CRITICAL_ENDPOINT,json={"message": "Hello from CRITICAL message!"})
-        except requests.exceptions.RequestException as e:
-            raise e
-        st.session_state["critical_level"] = False
+#     if st.session_state["debug_level"]:
+#         try:
+#             requests.post(DEBUG_ENDPOINT, json={"message": "Hello from DEBUG message!"})
+#         except requests.exceptions.RequestException as e:
+#             raise e
+#         st.session_state["debug_level"] = False
+    
+#     if st.session_state["warning_level"]:
+#         try:
+#             requests.post(WARNING_ENDPOINT, json={"message": "Hello from WARNING message!"})
+#         except requests.exceptions.RequestException as e:
+#             raise e
+#         st.session_state["warning_level"] = False
+    
+#     if st.session_state["error_level"]:
+#         try:
+#             requests.post(ERROR_ENDPOINT, json={"message": "Hello from ERROR message!"})
+#         except requests.exceptions.RequestException as e:
+#             raise e
+#         st.session_state["error_level"] = False
+
+#     if st.session_state["critical_level"]:
+#         try:
+#             requests.post(CRITICAL_ENDPOINT, json={"message": "Hello from CRITICAL message!"})
+#         except requests.exceptions.RequestException as e:
+#             raise e
+#         st.session_state["critical_level"] = False
+
 
 with st.container():
     st.session_state["costs_vodafone"] = st.button("Generate random costs for Vodafone", type="primary")
