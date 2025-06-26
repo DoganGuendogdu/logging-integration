@@ -7,6 +7,11 @@
 ## Grafana or Prometheus integration in the Streamlit UI
 
 # Sending an alert using Gmail
+
 - Please reference following link to register an application to your Google Account: [Register app to Gmail account](https://www.youtube.com/watch?v=a6Gh01-Rldw).
-- After that, add the missing information to the 'alertmanager.yml' file.
+- After that, add the missing information to the 'alertmanager.yml' file. (TODO: Read from .env)
+
+- `chmod +x bin/create-prometheus-alerts.sh`
+- `bash create-prometheus-alerts.sh`
+- `docker compose up`
 
