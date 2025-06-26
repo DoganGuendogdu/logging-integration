@@ -64,7 +64,7 @@ groups:
           alert_type: cost_alert_hourly
         annotations:
           summary: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }}"
-          description: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }} with a total limit of 300€"
+          description: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }} with a total limit of ${THRESHOLD_COST_VODAFONE}"
 
       - alert: HourlyCostTelekom
         expr: max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"}[1h])
@@ -74,7 +74,7 @@ groups:
           alert_type: cost_alert_hourly
         annotations:
           summary: "The hourly cost for customer 'Telekom' is €{{ printf \"%.2f\" $value }}"
-          description: "The hourly cost for customer 'Telekom' is €{{ printf \"%.2f\" $value }} with a total limit of 200€"
+          description: "The hourly cost for customer 'Telekom' is €{{ printf \"%.2f\" $value }} with a total limit of ${THRESHOLD_COST_TELEKOM}"
 
       - alert: HourlyCost1und1
         expr: max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="1und1"}[1h])
@@ -84,5 +84,5 @@ groups:
           alert_type: cost_alert_hourly
         annotations:
           summary: "The hourly cost for customer '1und1' is €{{ printf \"%.2f\" $value }}"
-          description: "The hourly cost for customer '1und1' is €{{ printf \"%.2f\" $value }} with a total limit of 150€"
+          description: "The hourly cost for customer '1und1' is €{{ printf \"%.2f\" $value }} with a total limit of ${THRESHOLD_COST_1UND1}"
           
