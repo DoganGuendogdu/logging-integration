@@ -26,7 +26,7 @@ services:
   prometheus-alertmanager: # alertmanager is a separate service of Prometheus
     image: prom/alertmanager
     volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml # Register what to do if an alert is triggered
     command:
       - "--config.file=/etc/alertmanager/alertmanager.yml"
     ports:
