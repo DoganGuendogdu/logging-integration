@@ -14,8 +14,8 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
-      - ./alert.rules.yml:/etc/prometheus/alert.rules.yml # register alerts 
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
+      - ./prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml # register alerts 
       - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
       - /etc/timezone:/etc/timezone:ro
     command:
@@ -50,4 +50,4 @@ volumes:
   # create a persistent volume managed by Docker
   # no need to specify path to volume since Docker is managing it under the hood
   grafana-storage: 
-  
+    

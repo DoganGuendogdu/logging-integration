@@ -18,6 +18,6 @@ alerting: # Define which service will handle alerts forwarded by Prometheus
     - static_configs:
         - targets:
             - prometheus-alertmanager:9093
-
+            
 rule_files:
   - /etc/prometheus/alert.rules.yml # Prometheus uses this file to register the alerts
