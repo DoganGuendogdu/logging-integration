@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8501 
 
-CMD ["python", "-m", "streamlit", "run", "src/log-levels.py", "--server.address=0.0.0.0", "--server.port=8501"] 
+CMD ["python", "-m", "streamlit", "run", "src/Welcome.py", "--server.address=0.0.0.0", "--server.port=8501"] 
