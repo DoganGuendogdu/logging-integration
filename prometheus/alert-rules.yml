@@ -1,70 +1,44 @@
 groups:
-#  - name: log_alerts
-#    rules:
-#      - alert: InfoLogDetected
-#        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="INFO"}[4m]) > 0 
-#        labels:
-#          severity: info
-#        annotations:
-#          summary: "INFO log detected!"
-#          description: "An INFO message has been logged"
-
-#      - alert: ErrorLogDetected
-#        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="ERROR"}[4m]) > 0 
-#        labels:
-#          severity: error
-#        annotations:
-#          summary: "ERROR log detected!"
-#          description: "An ERROR message has been logged"
-
-#      - alert: CriticalAlertDetected
-#        expr: increase(log_events_total{instance="backend-fastapi-api:1111", job="logging-integration", level="CRITICAL"}[3m]) > 15
-#        labels:
-#          severity: critical
-#        annotations:
-#          summary: "CRITICAL HACKER Alert detected!"
-#          description: "More than 15 attempts were made in the last 3 minutes!"
-
   - name: cost_alerts_threshold_exceeded
     rules:
       - alert: TotalCostLimitExceeded
-        expr: sum(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}) > 700
+        expr: sum(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}) > 800
         labels:
           severity: critical
           alert_type: cost_exceeded
         annotations:
-          summary: "The total cost limit of 700€ has been exceeded!"
-          description: "The limit of 700€ set for all customers has been exceeded"
+          summary: "The total cost limit of 800 has been exceeded!"
+          description: "The limit of 800 set for all customers has been exceeded"
 
       - alert: CostLimitExceededVodafone
-        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"} > 300
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"} > 200
         for: 0s
         labels:
           severity: critical
           alert_type: cost_exceeded
         annotations:
-          summary: "The cost limit of 300€ has been exceeded for customer 'Vodafone'"
-          description: "The limit of 300€ set for the API key used by customer 'Vodafone' has been exceeded"
+          summary: "The cost limit of 200 has been exceeded for customer 'Vodafone'"
+          description: "The limit of 200 set for the API key used by customer 'Vodafone' has been exceeded"
 
       - alert: CostLimitExceededTelekom
-        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"} > 200
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"} > 100
         for: 0s
         labels:
           severity: critical
           alert_type: cost_exceeded
         annotations:
-          summary: "The cost limit of 200€ has been exceeded for customer 'Telekom'"
-          description: "The limit of 200€ set for the API key used by customer 'Telekom' has been exceeded"
+          summary: "The cost limit of 100 has been exceeded for customer 'Telekom'"
+          description: "The limit of 100 set for the API key used by customer 'Telekom' has been exceeded"
 
       - alert: CostLimitExceeded1und1
-        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="1und1"} > 150
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="1und1"} > 40
         for: 0s
         labels:
           severity: critical
           alert_type: cost_exceeded
         annotations:
-          summary: "The cost limit of 150€ has been exceeded for customer '1und1'"
-          description: "The limit of 150€ set for the API key used by customer '1und1' has been exceeded"
+          summary: "The cost limit of 40 has been exceeded for customer '1und1'"
+          description: "The limit of 40 set for the API key used by customer '1und1' has been exceeded"
 
   - name: cost_alerts_hourly
     rules:
