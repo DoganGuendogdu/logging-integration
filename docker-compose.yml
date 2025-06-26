@@ -25,6 +25,10 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
     ports:
       - "9090:9090"
+    environment:
+      THRESHOLD_COST_VODAFONE: ${THRESHOLD_COST_VODAFONE}
+      THRESHOLD_COST_TELEKOM: ${THRESHOLD_COST_TELEKOM}
+      THRESHOLD_COST_1UND1: ${THRESHOLD_COST_1UND1}
 
   prometheus-alertmanager: # alertmanager is a separate service of Prometheus
     image: prom/alertmanager:v0.28.1
