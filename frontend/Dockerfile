@@ -1,17 +1,17 @@
 FROM python:3.12-slim
 
-WORKDIR /frontend
+WORKDIR /logging-integration
 
-RUN mkdir -p /frontend/src
+RUN mkdir -p /logging-integration/frontend/src
 
 COPY ./src /frontend/src
 
-COPY config.yml /frontend/
+COPY requirements.txt /frontend
 
-COPY requirements.txt /frontend/
+COPY .env /frontend
 
-RUN pip install -r requirements.txt
+RUN pip install -r /frontend/requirements.txt
 
-EXPOSE 8501 
+EXPOSE 8501
 
-CMD ["python", "-m", "streamlit", "run", "src/Welcome.py", "--server.address=0.0.0.0", "--server.port=8501"] 
+CMD ["python", "-m", "streamlit", "run", "/frontend/src/App.py", "--server.address=0.0.0.0", "--server.port=8501"]
