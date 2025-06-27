@@ -10,6 +10,8 @@ backend:
     cost_telekom: "http://backend-fastapi-api:1111/cost/telekom"
     cost_1und1: "http://backend-fastapi-api:1111/cost/1und1"
 
+    threshold_cost_total: "http://backend-fastapi-api:1111/threshold/costs"
+
 #backend:
 #  endpoints:
 #    info: "http://127.0.0.1:1111/log/info"
@@ -21,3 +23,6 @@ backend:
 #    cost_vodafone: "http://127.0.0.1:1111/cost/vodafone"
 #    cost_telekom: "http://127.0.0.1:1111/cost/telekom"
 #    cost_1und1: "http://127.0.0.1:1111/cost/1und1"
+
+#    threshold_cost_total: "http://127.0.0.1:1111/threshold/costs"
+
