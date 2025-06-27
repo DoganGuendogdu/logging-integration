@@ -14,8 +14,16 @@ costs_total = Gauge("costs_total", "Summarizes total costs for different custome
 class Message(BaseModel):
     message:str
 
+# stores generated costs
 class Costs(BaseModel):
     cost:str
+
+# stores thresholds 
+class ThresholdCosts(BaseModel):
+    total_costs: float
+    vodafone_cost: float
+    telekom_cost: float
+    cost_1und1: float
 
 app = FastAPI(debug=True)
 
@@ -43,6 +51,15 @@ async def log_endpoint_info(message:Message):
 async def log_endpoint_info(message:Message):
     log_counter.labels(level="CRITICAL").inc()
     return {"message": f"severity with log level 'CRITICAL' and content: {message}"} 
+
+# TODO: Add thresholds as metric
+@app.post("/threshold/costs")
+async def threshold_costs(threshold_cost: ThresholdCosts):
+    logger.debug(f"Cost thresholds: {threshold_cost}")
+    return {"total_cost": threshold_cost.total_costs,
+            "vodafone_cost": threshold_cost.vodafone_cost, 
+            "telekom_cost": threshold_cost.telekom_cost, 
+            "1und1_cost": threshold_cost.cost_1und1}
 
 @app.post("/cost/vodafone")
 async def cost_vodafone(cost: Costs):
