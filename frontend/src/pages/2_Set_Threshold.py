@@ -1,4 +1,19 @@
 import streamlit as st 
+from pathlib import Path
+import yaml
+import requests
+
+ROOT_PATH = Path(__file__).resolve().parent.parent.parent
+
+try:
+    with open(ROOT_PATH / "config.yml") as config_file:
+        config = yaml.safe_load(config_file)
+except FileNotFoundError as e:
+    raise e
+
+
+ENDPOINTS = config["backend"]["endpoints"]
+THRESHOLD_COST_ENDPOINT = ENDPOINTS["threshold_cost_total"]
 
 
 def check_if_cost_thresholds_less_or_equal_than_total_threshold(total_cost_threshold: float, vodafone_cost_threshold:float,
@@ -33,4 +48,14 @@ if submit_thresholds:
     if not customer_threshold_check:
         st.error("Please verify that the total cost threshold is not exceeded!")
     else:
-        st.success("Thresholds have been set!")
+        try:
+            result = requests.post(THRESHOLD_COST_ENDPOINT, json={"total_costs": input_threshold_total_cost, "vodafone_cost": input_threshold_vodafone,
+                                                         "telekom_cost": input_threshold_telekom, "cost_1und1": input_threshold_1und1})
+
+            # TODO: Handle error cases if status != 200
+            if result.status_code == 200:
+                st.success("Thresholds have been set!")
+            else:
+                st.error(f"Error while sending reques to endpint: {result.reason}")
+        except requests.exceptions.RequestException as e:
+            raise e
