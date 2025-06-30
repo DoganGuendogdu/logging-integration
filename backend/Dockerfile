@@ -6,7 +6,7 @@ RUN mkdir -p /backend/src
 
 COPY ./src /backend/src
 
-COPY requirements.txt /backend//
+COPY requirements.txt /backend/
 
 RUN pip install -r requirements.txt
 
