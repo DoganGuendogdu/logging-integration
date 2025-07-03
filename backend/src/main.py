@@ -18,7 +18,10 @@ costs_total = Gauge("costs_total", "Summarizes total costs for different custome
 
 PROJECT_DIR_PATH = Path(__file__).parent.parent.parent
 PROMETHEUS_DIR_PATH = PROJECT_DIR_PATH / "prometheus"
+BIN_DIR_PATH = PROJECT_DIR_PATH / "bin"
+
 CONFIG_FILE_PATH = PROMETHEUS_DIR_PATH / "config.json"
+CREATE_ALERT_RULES_SCRIPT_PATH = BIN_DIR_PATH / "create-prometheus-alerts.sh"
 
 
 class Message(BaseModel):
