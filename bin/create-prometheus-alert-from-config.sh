@@ -57,12 +57,21 @@ if [[ "$cost_1und1" == "null" || -z "$cost_1und1" ]]; then
   exit 1
 fi
 
+export THRESHOLD_TOTAL_COST=$total_cost
+export THRESHOLD_COST_VODAFONE=$vodafone_cost
+export THRESHOLD_COST_TELEKOM=$telekom_cost
+export THRESHOLD_COST_1UND1=$cost_1und1
+
 echo "Successfully retrieved thresholds."
 
-#echo "Successfully created alert-rules.yml."
+echo "Creating alert-rules-template.yml"
 
 echo "$thresholds"
 echo "$total_cost"
 echo "$vodafone_cost"
 echo "$telekom_cost"
 echo "$cost_1und1"
+envsubst '${THRESHOLD_TOTAL_COST} ${THRESHOLD_COST_VODAFONE} ${THRESHOLD_COST_TELEKOM} ${THRESHOLD_COST_1UND1}'\
+< "$PROMETHEUS_DIR"/alert-rules-template.yml > "$PROMETHEUS_DIR"/alert-rules.yml
+
+echo "Successfully created alert-rules.yml."
