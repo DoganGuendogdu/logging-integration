@@ -2,14 +2,14 @@
 
 SCRIPT_PATH="$(readlink -f "$BASH_SOURCE")"
 BIN_DIR="$(dirname "$SCRIPT_PATH")"
-APP_HOME="$(dirname "$BIN_DIR")"
-PROMETHEUS_DIR="$APP_HOME"/prometheus
+BACKEND_DIR="$(dirname "$BIN_DIR")"
+CONFIG_DIR="$BACKEND_DIR"/config
 
 echo "Creating alert rules (alert-rules.yml) for Prometheus."
 
 echo "Reading configuration from 'config.json'."
 
-config_data=$(cat "$PROMETHEUS_DIR"/config.json)
+config_data=$(cat "$CONFIG_DIR"/config.json)
 
 thresholds=$(echo "$config_data" | jq '.thresholds')
 thresholds_array=$(echo "$thresholds" | jq '.[]')
@@ -67,6 +67,6 @@ echo "Successfully retrieved thresholds."
 echo "Creating alert-rules-template.yml"
 
 envsubst '${THRESHOLD_TOTAL_COST} ${THRESHOLD_COST_VODAFONE} ${THRESHOLD_COST_TELEKOM} ${THRESHOLD_COST_1UND1}'\
-< "$PROMETHEUS_DIR"/alert-rules-template.yml > "$PROMETHEUS_DIR"/alert-rules.yml
+< "$CONFIG_DIR"/alert-rules-template.yml > "$CONFIG_DIR"/alert-rules.yml
 
 echo "Successfully created alert-rules.yml."
