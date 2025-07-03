@@ -9,23 +9,24 @@ echo "Creating alert rules (alert-rules.yml) for Prometheus."
 
 echo "Reading configuration from 'config.json'."
 
-data=$(cat "$PROMETHEUS_DIR"/config.json)
+config_data=$(cat "$PROMETHEUS_DIR"/config.json)
 
-# if config file does not contain any data, raise error
-# -z: Checks if length of string is zero
-if [[ -z "$data" ]]; then
-  echo "Failed to retrieve config data. File is empty."
-  exit 1
-fi
-
-echo "Retrieving configuration for thresholds."
-
-thresholds=$(echo "$data" | jq '.thresholds')
+thresholds=$(echo "$config_data" | jq '.thresholds')
 thresholds_array=$(echo "$thresholds" | jq '.[]')
 total_cost=$(echo "$thresholds_array" | jq '.total_cost')
 vodafone_cost=$(echo "$thresholds_array" | jq '.vodafone_cost')
 telekom_cost=$(echo "$thresholds_array" | jq '.telekom_cost')
 cost_1und1=$(echo "$thresholds_array" | jq '."1und1_cost"')
+
+
+# if config file does not contain any data, raise error
+# -z: Checks if length of string is zero
+if [[ -z "$config_data" ]]; then
+  echo "Failed to retrieve config data. File is empty."
+  exit 1
+fi
+
+echo "Retrieving configuration for thresholds."
 
 if [[ "$thresholds" == 'null' || -z "$thresholds" ]]; then
   echo "Error: 'thresholds' is missing or null or empty."
@@ -66,11 +67,6 @@ echo "Successfully retrieved thresholds."
 
 echo "Creating alert-rules-template.yml"
 
-echo "$thresholds"
-echo "$total_cost"
-echo "$vodafone_cost"
-echo "$telekom_cost"
-echo "$cost_1und1"
 envsubst '${THRESHOLD_TOTAL_COST} ${THRESHOLD_COST_VODAFONE} ${THRESHOLD_COST_TELEKOM} ${THRESHOLD_COST_1UND1}'\
 < "$PROMETHEUS_DIR"/alert-rules-template.yml > "$PROMETHEUS_DIR"/alert-rules.yml
 
