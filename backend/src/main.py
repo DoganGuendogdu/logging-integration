@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 from dotenv import dotenv_values
@@ -6,10 +7,8 @@ from prometheus_client import Counter, Gauge
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from pydantic import BaseModel
 from starlette.responses import Response
-import subprocess
 
 from .json_file_manipulation import *
-
 
 logger = logging.getLogger("uvicorn.error")
 logger.setLevel(logging.DEBUG)
