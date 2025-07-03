@@ -5,6 +5,7 @@ from prometheus_client import Counter, Gauge
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from pydantic import BaseModel
 from starlette.responses import Response
+import subprocess
 
 from .json_file_manipulation import *
 
