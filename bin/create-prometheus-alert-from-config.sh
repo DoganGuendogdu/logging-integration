@@ -6,7 +6,8 @@ APP_HOME="$(dirname "$BIN_DIR")"
 PROMETHEUS_DIR="$APP_HOME"/prometheus
 
 
-data='{"thresholds":[{"total_cost": 33333.0,"vodafone_cost": 22.0,"telekom_cost": 0.0,"1und1_cost":3.0}]}'
+data=$(cat "$PROMETHEUS_DIR"/config.json)
+
 thresholds=$(echo "$data" | jq '.thresholds[]')
 
 total_cost=$(echo "$thresholds" | jq '.total_cost')
