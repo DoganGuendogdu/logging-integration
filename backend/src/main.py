@@ -9,6 +9,7 @@ import subprocess
 
 from .json_file_manipulation import *
 
+
 logger = logging.getLogger("uvicorn.error")
 logger.setLevel(logging.DEBUG)
 
