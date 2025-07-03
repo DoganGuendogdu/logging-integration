@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from dotenv import dotenv_values
 from fastapi import FastAPI
 from prometheus_client import Counter, Gauge
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
