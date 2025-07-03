@@ -17,11 +17,18 @@ log_counter = Counter("log_events_total", "Counts number of entries for every lo
 costs_total = Gauge("costs_total", "Summarizes total costs for different customers", ["customer"])
 
 PROJECT_DIR_PATH = Path(__file__).parent.parent.parent
-PROMETHEUS_DIR_PATH = PROJECT_DIR_PATH / "prometheus"
-BIN_DIR_PATH = PROJECT_DIR_PATH / "bin"
+BACKEND_DIR_PATH = PROJECT_DIR_PATH / "backend"
 
-CONFIG_FILE_PATH = PROMETHEUS_DIR_PATH / "config.json"
-CREATE_ALERT_RULES_SCRIPT_PATH = BIN_DIR_PATH / "create-prometheus-alerts.sh"
+try:
+    config = dotenv_values(BACKEND_DIR_PATH / ".env")
+except FileNotFoundError as e:
+    raise e
+
+CONFIG_FILE_DIR = Path(str(config.get("CONFIG_FILE_DIR")))
+SCRIPTS_DIR = Path(str(config.get("SCRIPTS_DIR")))
+
+CONFIG_FILE = CONFIG_FILE_DIR / "config.json"
+CREATE_PROMETHEUS_ALERT_SCRIPT = SCRIPTS_DIR / "create-prometheus-alerts.sh"
 
 
 class Message(BaseModel):
