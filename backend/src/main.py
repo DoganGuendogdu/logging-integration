@@ -93,12 +93,12 @@ async def threshold_costs(threshold_cost: ThresholdCosts):
         "1und1_cost": threshold_cost.cost_1und1
     }
 
-    config_file_data = read_contents_from_json_file(CONFIG_FILE_PATH)
+    config_file_data = read_contents_from_json_file(CONFIG_FILE)
     config_file_with_replaced_data = replace_values_json_file(config_file_data, threshold_data_json, "thresholds")
-    write_contents_to_json_file(CONFIG_FILE_PATH, config_file_with_replaced_data)
+    write_contents_to_json_file(CONFIG_FILE, config_file_with_replaced_data)
 
     try:
-        subprocess.run(CREATE_ALERT_RULES_SCRIPT_PATH)
+        subprocess.run(CREATE_PROMETHEUS_ALERT_SCRIPT)
     except Exception as e:
         logger.error(f"Error while creating 'alert-rules.yml': {e}")
         raise e
