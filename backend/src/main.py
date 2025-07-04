@@ -99,10 +99,12 @@ async def threshold_costs(threshold_cost: ThresholdCosts):
     cost_threshold.labels(customer="Telekom").set(float(threshold_cost.telekom_cost))
     cost_threshold.labels(customer="1und1").set(float(threshold_cost.cost_1und1))
 
+    # insert threshold costs as key-value pairs in config file
     config_file_data = read_contents_from_json_file(CONFIG_FILE)
     config_file_with_replaced_data = replace_values_json_file(config_file_data, threshold_data_json, "thresholds")
     write_contents_to_json_file(CONFIG_FILE, config_file_with_replaced_data)
 
+    # run script to create Prometheus alerts with newly set cost thresholds
     try:
         subprocess.run(CREATE_PROMETHEUS_ALERT_SCRIPT)
     except Exception as e:
