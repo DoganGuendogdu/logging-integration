@@ -1,0 +1,10 @@
+{
+    "thresholds": [
+        {
+            "total_cost": 10000.0,
+            "vodafone_cost": 2000.0,
+            "telekom_cost": 3000.0,
+            "1und1_cost": 1000.0
+        }
+    ]
+}

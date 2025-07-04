@@ -1,0 +1,88 @@
+groups:
+  - name: cost_alerts_threshold_exceeded
+    rules:
+      - alert: TotalCostLimitExceeded
+        expr: sum(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}) > 10000
+        labels:
+          severity: critical
+          alert_type: cost_exceeded
+        annotations:
+          summary: "The total cost limit of 10000 has been exceeded!"
+          description: "The limit of 10000 set for all customers has been exceeded"
+
+      - alert: CostLimitExceededVodafone
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"} > 2000
+        for: 0s
+        labels:
+          severity: critical
+          alert_type: cost_exceeded
+        annotations:
+          summary: "The cost limit of 2000 has been exceeded for customer 'Vodafone'"
+          description: "The limit of 2000 set for the API key used by customer 'Vodafone' has been exceeded"
+
+      - alert: CostLimitExceededTelekom
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"} > 3000
+        for: 0s
+        labels:
+          severity: critical
+          alert_type: cost_exceeded
+        annotations:
+          summary: "The cost limit of 3000 has been exceeded for customer 'Telekom'"
+          description: "The limit of 3000 set for the API key used by customer 'Telekom' has been exceeded"
+
+      - alert: CostLimitExceeded1und1
+        expr: costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="1und1"} > 1000
+        for: 0s
+        labels:
+          severity: critical
+          alert_type: cost_exceeded
+        annotations:
+          summary: "The cost limit of 1000 has been exceeded for customer '1und1'"
+          description: "The limit of 1000 set for the API key used by customer '1und1' has been exceeded"
+
+  - name: cost_alerts_hourly
+    rules:
+      - alert: HourlyTotalCost
+        expr: sum(max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration"}[1h]))
+        for: 0s 
+        labels:
+          severity: info
+          alert_type: cost_alert_hourly
+        annotations:
+          summary: "The hourly cost for all customers combined is €{{ printf \"%.2f\" $value }}"
+          description: "The hourly cost for all customers is €{{ printf \"%.2f\" $value }}"
+      
+      # costs_total: represents single total value of Gauge object
+      # to restrict to a specific time interval use max_over_time. 
+      # In case of calculating costs, getting max value is valid since latest_cost_value = highest_cost_value  
+      # In other cases, Gauge object value can decrease, so this approach is not valid to get the latest value
+      - alert: HourlyCostVodafone
+        expr: max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Vodafone"}[1h])
+        for: 0s 
+        labels:
+          severity: info
+          alert_type: cost_alert_hourly
+        annotations:
+          summary: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }}"
+          description: "The hourly cost for customer 'Vodafone' is €{{ printf \"%.2f\" $value }} with a total limit of 2000"
+
+      - alert: HourlyCostTelekom
+        expr: max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="Telekom"}[1h])
+        for: 0s 
+        labels:
+          severity: info
+          alert_type: cost_alert_hourly
+        annotations:
+          summary: "The hourly cost for customer 'Telekom' is €{{ printf \"%.2f\" $value }}"
+          description: "The hourly cost for customer 'Telekom' is €{{ printf \"%.2f\" $value }} with a total limit of 3000"
+
+      - alert: HourlyCost1und1
+        expr: max_over_time(costs_total{instance="backend-fastapi-api:1111", job="logging-integration", customer="1und1"}[1h])
+        for: 0s 
+        labels:
+          severity: info
+          alert_type: cost_alert_hourly
+        annotations:
+          summary: "The hourly cost for customer '1und1' is €{{ printf \"%.2f\" $value }}"
+          description: "The hourly cost for customer '1und1' is €{{ printf \"%.2f\" $value }} with a total limit of 1000"
+          
