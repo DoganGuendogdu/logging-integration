@@ -10,7 +10,6 @@ RUN mkdir -p /backend/config
 
 COPY ./src /backend/src
 
-COPY requirements.txt /backend/
 COPY ./bin /backend/bin
 
 COPY ./config /backend/config
@@ -18,6 +17,12 @@ COPY ./config /backend/config
 COPY requirements.txt /backend
 
 COPY .env /backend/
+
+RUN apt-get update
+
+RUN apt-get install jq -y
+
+RUN apt-get install gettext -y
 
 RUN pip install -r requirements.txt
 
