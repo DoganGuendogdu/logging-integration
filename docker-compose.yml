@@ -29,9 +29,7 @@ services:
     volumes:
 #      - prometheus-config-storage:/etc/prometheus/
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
-      - ./prometheus/alert-rules.yml:/etc/prometheus/alert.rules.yml # register alerts 
-      - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
-      - /etc/timezone:/etc/timezone:ro
+      - ./backend/config/alert-rules.yml:/etc/prometheus/alert.rules.yml # register alerts
     command:
       - "--config.file=/etc/prometheus/prometheus.yml" # run prometheus with explicit file location
     ports:
