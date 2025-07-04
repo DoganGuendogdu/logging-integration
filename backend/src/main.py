@@ -15,6 +15,7 @@ logger.setLevel(logging.DEBUG)
 
 log_counter = Counter("log_events_total", "Counts number of entries for every log level", ["level"])
 costs_total = Gauge("costs_total", "Summarizes total costs for different customers", ["customer"])
+cost_threshold = Gauge("cost_threshold", "Summarizes cost thresholds for all customers", ["customer"])
 
 PROJECT_DIR_PATH = Path(__file__).parent.parent.parent
 BACKEND_DIR_PATH = PROJECT_DIR_PATH / "backend"
