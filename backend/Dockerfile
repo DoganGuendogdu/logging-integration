@@ -4,6 +4,10 @@ WORKDIR /backend
 
 RUN mkdir -p /backend/src
 
+RUN mkdir -p /backend/bin
+
+RUN mkdir -p /backend/config
+
 COPY ./src /backend/src
 
 COPY requirements.txt /backend/
