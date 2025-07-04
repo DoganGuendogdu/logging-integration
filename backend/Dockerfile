@@ -11,6 +11,13 @@ RUN mkdir -p /backend/config
 COPY ./src /backend/src
 
 COPY requirements.txt /backend/
+COPY ./bin /backend/bin
+
+COPY ./config /backend/config
+
+COPY requirements.txt /backend
+
+COPY .env /backend/
 
 RUN pip install -r requirements.txt
 
