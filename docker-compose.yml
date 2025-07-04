@@ -2,12 +2,20 @@
 
 version: '3'
 
+volumes:
+  # create a persistent volume managed by Docker
+  # no need to specify path to volume since Docker is managing it under the hood
+  grafana-storage:
+#  prometheus-config-storage:
+
 services:
   backend-fastapi-api:
     build: backend
     container_name: fastapi
     ports:
       - "1111:1111"
+    #volumes:
+#      - prometheus-config-storage:/etc/prometheus/
 
   frontend-streamlit:
     build: frontend
@@ -19,6 +27,7 @@ services:
     image: prom/prometheus:v3.4.1
     container_name: prometheus-v3.4.1
     volumes:
+#      - prometheus-config-storage:/etc/prometheus/
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # map content of local config to file in container
       - ./prometheus/alert-rules.yml:/etc/prometheus/alert.rules.yml # register alerts 
       - /etc/localtime:/etc/localtime:ro # use the same time and timezone using config of own host machine
@@ -51,9 +60,3 @@ services:
         - grafana-storage:/var/lib/grafana
         # provide static config files to set config and generate resources 
         - ./grafana/provisioning:/etc/grafana/provisioning
-
-volumes:
-  # create a persistent volume managed by Docker
-  # no need to specify path to volume since Docker is managing it under the hood
-  grafana-storage: 
-    
