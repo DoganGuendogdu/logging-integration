@@ -1,3 +1,5 @@
+# TODO: use 'docker volume' to read Prometheus config from instead of using 'bind'
+
 version: '3'
 
 services:
