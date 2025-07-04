@@ -94,6 +94,11 @@ async def threshold_costs(threshold_cost: ThresholdCosts):
         "1und1_cost": threshold_cost.cost_1und1
     }
 
+    # add cost threshold for customers as Prometheus metric
+    cost_threshold.labels(customer="Vodafone").set(float(threshold_cost.vodafone_cost))
+    cost_threshold.labels(customer="Telekom").set(float(threshold_cost.telekom_cost))
+    cost_threshold.labels(customer="1und1").set(float(threshold_cost.cost_1und1))
+
     config_file_data = read_contents_from_json_file(CONFIG_FILE)
     config_file_with_replaced_data = replace_values_json_file(config_file_data, threshold_data_json, "thresholds")
     write_contents_to_json_file(CONFIG_FILE, config_file_with_replaced_data)
