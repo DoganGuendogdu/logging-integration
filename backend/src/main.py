@@ -82,7 +82,6 @@ async def log_endpoint_info(message: Message):
     return {"message": f"severity with log level 'CRITICAL' and content: {message}"}
 
 
-# TODO: Add thresholds as metric
 @app.post("/threshold/costs")
 async def threshold_costs(threshold_cost: ThresholdCosts):
     logger.debug(f"Cost thresholds: {threshold_cost}")
