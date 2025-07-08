@@ -94,6 +94,7 @@ async def threshold_costs(threshold_cost: ThresholdCosts):
     }
 
     # add cost threshold for customers as Prometheus metric
+    cost_threshold.labels(customer="all").set(float(threshold_cost.total_costs))
     cost_threshold.labels(customer="Vodafone").set(float(threshold_cost.vodafone_cost))
     cost_threshold.labels(customer="Telekom").set(float(threshold_cost.telekom_cost))
     cost_threshold.labels(customer="1und1").set(float(threshold_cost.cost_1und1))
